@@ -1,3 +1,4 @@
+// include required classes and libraries
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -5,6 +6,7 @@ const inquirer = require("inquirer");
 const generate = require("./generateHTML.js");
 const fs = require("fs");
 
+// define global variables
 let managerInfo;
 let employees = [];
 let moreEmployees = true;
@@ -15,12 +17,13 @@ let employeeInformation = {
     interns: []
 }
 
+// initialize command line interview
 getEmployeeInfo();
 
-
-
+// async function that gets the Employee info from the command line
 async function getEmployeeInfo() {
     
+    // prompt for manager information
     const { managerName, id, email, office } = await inquirer.prompt([
         {
             type: "input",
@@ -44,27 +47,30 @@ async function getEmployeeInfo() {
         }
       ]);
 
-      console.log(`name: ${managerName}, id: ${id}, office: ${office}`);
+      // create new Manager object with supplied info
       managerInfo = new Manager(managerName, id, email, office);
-      managerInfo.printManager();
+      // managerInfo.printManager();
+      
+      // add Manager to employeeInformation object in the managers array
       employeeInformation.managers.push(managerInfo);
 
 
+    // get more employees until user is finished adding them
     while(moreEmployees){
         try {
-        const { emp } = await inquirer.prompt({
-            type: "list",
-            message: "Do you want to add another employee? (yes/no)",
-            choices: ["yes", "no"],
-            name: "emp"
-        });
-    
-            console.log(emp);
+            const { emp } = await inquirer.prompt({
+                type: "list",
+                message: "Do you want to add another employee? (yes/no)",
+                choices: ["yes", "no"],
+                name: "emp"
+            });
+        
+            // If there are no more employee, set boolean to false and make the HTML for output
             if(emp == "no") {
                 moreEmployees = false;
                 makeHTML(employeeInformation);
-            }
-            else {
+            } else {
+                // Otherwise get employee info
                 const { name, role, id, email } = await inquirer.prompt([
                     {
                         type: "input",
@@ -89,10 +95,7 @@ async function getEmployeeInfo() {
                     }
                 ])
 
-                console.log("name = " + name);
-                console.log("role = " + role);
-                console.log("id = " + id);
-
+                // Collect the role specific information
                 if(role == "Engineer") {
 
                     const { github } = await inquirer.prompt({
@@ -100,7 +103,6 @@ async function getEmployeeInfo() {
                         message: "What is the employee's Github username?",
                         name: "github"
                     })
-                    console.log("The github username is " + github);
 
                     employeeInformation.engineers.push(new Engineer(name, id, email, github));
                 } else if (role == "Intern") {
@@ -108,16 +110,15 @@ async function getEmployeeInfo() {
                         type: "input",
                         message: "What is the employee's school?",
                         name: "school"
-                    })
-                    console.log("The school is " + school);
+                })
 
-                    employeeInformation.interns.push(new Intern(name, id, email, school));
+                employeeInformation.interns.push(new Intern(name, id, email, school));
 
                 }
             }
-        
+            
         } catch (err) {
-        console.log(err);
+            console.log(err);
     }
   }
 }
@@ -147,16 +148,25 @@ function makeHTML(object) {
     // iterate through the interns and add a card for each one
     while(employeeInformation.interns.length != 0) {
         console.log("employeeInformation.interns.length = " + employeeInformation.interns.length);
+        
+        //start a new row if a multiple of 3 employees are on the last row
+        if(numberOfEmployees % 3 == 0) {
+            HTML += generate.newRow();
+        }        
+        
         HTML += generate.makeInternCard(employeeInformation.interns.pop());
+        numberOfEmployees++;
     }
     
+    // add the end of the HTML file when all cards have been added
     HTML += generate.getFooter();
 
     writeHTMLFile(HTML);
 }
 
+// write completed HTML file to output
 function writeHTMLFile(HTML) {
-    fs.writeFile('team.html', HTML, 'utf8', (err) => {
+    fs.writeFile('./output/team.html', HTML, 'utf8', (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
       });
