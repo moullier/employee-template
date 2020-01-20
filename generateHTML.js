@@ -13,11 +13,15 @@ function getHeader() {
           #headerRow {
             color: #f3f3f3;
             background-color: #27325D;
+            margin-bottom: 10px;
           }
           #logo {
             padding-left: 15px;
             padding-top: 10px;
             text-align: center;
+          }
+          .bodyrow {
+            width: 90%;
           }
           </style>
           </head>
@@ -29,71 +33,91 @@ function getHeader() {
                     </div>
                 </div>
             </div>
-            <div id="bodyContent" class="card-deck">
+            <div id="bodyContent" class="card-deck justify-content-center">
+                <div class="row bodyrow justify-content-center">
             `;
 }
 
 function getFooter() {
     return `</div>
+            </div>
         </body>
     </html>`;
 }
 
 function makeManagerCard(manager) {
-    return `<div class="card border-danger mb-3" style="max-width: 25%">
-    <div class="card-header">Manager
-        <i class="fas fa-mug-hot"></i>
+    return `<div class="col-12 col-sm-4">
+        <div class="card border-danger mb-3">
+            <div class="card-header">Manager
+                <i class="fas fa-mug-hot"></i>
+            </div>
+            <div class="card-body text-danger">
+                <h5 class="card-title">${manager.getName()}</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">ID #: ${manager.id}</li>
+                    <li class="list-group-item">Email: ${manager.email}</li>
+                    <li class="list-group-item">Office #: ${manager.officeNumber}</li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="card-body text-danger">
-      <h5 class="card-title">${manager.name}</h5>
-      <ul class="list-group">
-        <li class="list-group-item">ID #: ${manager.id}</li>
-        <li class="list-group-item">Email: ${manager.email}</li>
-        <li class="list-group-item">Office #: ${manager.officeNumber}</li>
-      </ul>
-    </div>
-  </div>
-  `
+  `;
 }
 
 function makeEngineerCard(engineer) {
-    return `<div class="card border-primary mb-3" style="max-width: 25%">
-    <div class="card-header">Engineer 
-        <i class="fas fa-glasses"></i>
+    return `
+    <div class="col-12 col-sm-4">
+        <div class="card border-primary mb-3">
+            <div class="card-header">Engineer 
+                <i class="fas fa-glasses"></i>
+            </div>
+            <div class="card-body text-primary">
+                <h5 class="card-title">${engineer.name}</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">ID #: ${engineer.id}</li>
+                    <li class="list-group-item">Email: ${engineer.email}</li>
+                    <li class="list-group-item">GitHub ID: ${engineer.github}</li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="card-body text-primary">
-      <h5 class="card-title">${engineer.name}</h5>
-      <ul class="list-group">
-        <li class="list-group-item">ID #: ${engineer.id}</li>
-        <li class="list-group-item">Email: ${engineer.email}</li>
-        <li class="list-group-item">GitHub ID: ${engineer.github}</li>
-      </ul>
-    </div>
-  </div>
-  `
+  `;
 }
 
 function makeInternCard(intern) {
-    return `<div class="card border-success mb-3" style="max-width: 25%">
-    <div class="card-header">Intern 
-        <i class="fas fa-user-graduate"></i>
+    return `
+    <div class="col-12 col-sm-4">
+        <div class="card border-success mb-3">
+            <div class="card-header">Intern 
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="card-body text-success">
+                <h5 class="card-title">${intern.name}</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">ID #: ${intern.id}</li>
+                    <li class="list-group-item">Email: ${intern.email}</li>
+                    <li class="list-group-item">School: ${intern.school}</li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="card-body text-success">
-      <h5 class="card-title">${intern.name}</h5>
-      <ul class="list-group">
-        <li class="list-group-item">ID #: ${intern.id}</li>
-        <li class="list-group-item">Email: ${intern.email}</li>
-        <li class="list-group-item">School: ${intern.school}</li>
-      </ul>
-    </div>
-  </div>
-  `
+  `;
 }
+
+function newRow() {
+    return `
+            </div>
+            <div class="row bodyrow justify-content-center">
+            `;
+}
+
+
 
 module.exports = {
     getHeader: getHeader,
     getFooter: getFooter,
     makeManagerCard: makeManagerCard,
     makeEngineerCard: makeEngineerCard,
-    makeInternCard: makeInternCard
+    makeInternCard: makeInternCard,
+    newRow: newRow
 };

@@ -126,14 +126,22 @@ async function getEmployeeInfo() {
 function makeHTML(object) {
     // generate header of file
     let HTML = generate.getHeader();
+    let numberOfEmployees = 0;
     
     // append a card with the manager's info
     HTML += generate.makeManagerCard(employeeInformation.managers.pop());
+    numberOfEmployees++;
 
     // iterate through the engineers and add a card for each one
     while(employeeInformation.engineers.length != 0) {
         console.log("employeeInformation.engineers.length = " + employeeInformation.engineers.length);
+        //start a new row if a multiple of 3 employees are on the last row
+        if(numberOfEmployees % 3 == 0) {
+            HTML += generate.newRow();
+        }
+
         HTML += generate.makeEngineerCard(employeeInformation.engineers.pop());
+        numberOfEmployees++;
     }
 
     // iterate through the interns and add a card for each one
