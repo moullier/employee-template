@@ -135,7 +135,6 @@ function makeHTML(object) {
 
     // iterate through the engineers and add a card for each one
     while(employeeInformation.engineers.length != 0) {
-        console.log("employeeInformation.engineers.length = " + employeeInformation.engineers.length);
         //start a new row if a multiple of 3 employees are on the last row
         if(numberOfEmployees % 3 == 0) {
             HTML += generate.newRow();
@@ -147,8 +146,7 @@ function makeHTML(object) {
 
     // iterate through the interns and add a card for each one
     while(employeeInformation.interns.length != 0) {
-        console.log("employeeInformation.interns.length = " + employeeInformation.interns.length);
-        
+    
         //start a new row if a multiple of 3 employees are on the last row
         if(numberOfEmployees % 3 == 0) {
             HTML += generate.newRow();

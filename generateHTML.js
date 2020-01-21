@@ -1,3 +1,4 @@
+// return the head of the HTML file
 function getHeader() {
     return `<!DOCTYPE html>
     <html lang="en">
@@ -38,6 +39,7 @@ function getHeader() {
             `;
 }
 
+// return the last part of the HTML file
 function getFooter() {
     return `</div>
             </div>
@@ -45,8 +47,10 @@ function getFooter() {
     </html>`;
 }
 
+// return a card based on a passed in Manager object
 function makeManagerCard(manager) {
-    return `<div class="col-12 col-sm-4">
+    return `
+    <div class="col-12 col-sm-4">
         <div class="card border-danger mb-3">
             <div class="card-header">Manager
                 <i class="fas fa-mug-hot"></i>
@@ -61,9 +65,10 @@ function makeManagerCard(manager) {
             </div>
         </div>
     </div>
-  `;
+    `;
 }
 
+// return a card based on a passed in Engineer object
 function makeEngineerCard(engineer) {
     return `
     <div class="col-12 col-sm-4">
@@ -84,6 +89,7 @@ function makeEngineerCard(engineer) {
   `;
 }
 
+// return a card based on a passed in Intern object
 function makeInternCard(intern) {
     return `
     <div class="col-12 col-sm-4">
@@ -104,6 +110,7 @@ function makeInternCard(intern) {
   `;
 }
 
+// return HTML that closes one row and opens a new row
 function newRow() {
     return `
             </div>

@@ -9,6 +9,7 @@ The different employee types were create as Objects.  First I created an object 
 ## Resources Used
 
 https://javascript.info/async-await - This page provided information about how to use asynchronous functions, which I used to get the input from the user in a loop of unknown length.
+https://nodejs.org/api/fs.html - This page provides information about the Node File System library.
 
 ## License
 
